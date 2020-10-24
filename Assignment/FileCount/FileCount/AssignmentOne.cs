@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NITYAINC
+namespace FileCount
 {
     public static class a
     {
@@ -19,4 +19,6 @@ namespace NITYAINC
             public static int a = 10;
         }
     }
+
+
 }

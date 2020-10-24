@@ -21,6 +21,9 @@ namespace FileCount
             {
                 Console.WriteLine($"{fileGroup.Key}: {fileGroup.Value}" );
             }
+
+            // Result of Assignment one
+            a.b.c = c.b.a;
         }
     }
 }
