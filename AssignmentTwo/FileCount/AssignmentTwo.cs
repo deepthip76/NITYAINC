@@ -69,7 +69,7 @@ namespace FileCount
         /// Gets the created month of a particular file
         /// </summary>
         /// <param name="filePath">File Path</param>
-        /// <returns></returns>
+        /// <returns>Created month</returns>
         public string GetCreatedMonth(string filePath)
         {
             // Get the created month in the format "MMMM"
