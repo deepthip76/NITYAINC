@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace FileCount
 {
@@ -13,8 +14,14 @@ namespace FileCount
             // Get the folder path from user input
             string folder = assignmentObject.GetFolderName();
 
+            // Get the files of the folder
+            string[] files = assignmentObject.GetFiles(folder);
+
+            // Create a dictionary object to store the result
+            Dictionary<string, int> fileGroups = new Dictionary<string, int>();
+
             // Get files from folder
-            Dictionary<string, int> fileGroups = assignmentObject.GetFileCount(folder);
+            fileGroups = assignmentObject.GetFileCount(files, fileGroups, files.Length-1);
 
             // Print the Months and File Counts
             foreach (KeyValuePair<string, int> fileGroup in fileGroups)
@@ -22,8 +29,6 @@ namespace FileCount
                 Console.WriteLine($"{fileGroup.Key}: {fileGroup.Value}" );
             }
 
-            // Result of Assignment one
-            a.b.c = c.b.a;
         }
     }
 }

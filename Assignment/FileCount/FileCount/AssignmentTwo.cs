@@ -18,15 +18,25 @@ namespace FileCount
             Console.WriteLine("Enter the path of the folder: ");
 
             // Get the folder from user input
-            string folder= Console.ReadLine();
+            string folder = Console.ReadLine();
 
             // Verify if the directory exists
-            if(Directory.Exists(folder))
+            if (!Directory.Exists(folder))
             {
                 throw new FileNotFoundException("Please enter a valid directory");
             }
-
             return folder;
+        }
+
+        /// <summary>
+        /// Get the files from the given path
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <returns></returns>
+        public string[] GetFiles(string folderPath)
+        {
+            // Get the files from the folder path
+            return Directory.GetFiles(folderPath);
         }
 
         /// <summary>
@@ -34,35 +44,32 @@ namespace FileCount
         /// </summary>
         /// <param name="path">Folder path</param>
         /// <returns>A <see cref="Dictionary{TKey, TValue}"/>as the "Month" "FileCount" pairs</returns>
-        public Dictionary<string,int> GetFileCount(string path)
+        public Dictionary<string, int> GetFileCount(string[] filePath, Dictionary<string, int> fileGroup, int n)
         {
-            //  Store all the files into a string array
-            string[] files = Directory.GetFiles(path);
-
-            // Declare a Dictionary for months and file counts
-            Dictionary<String, int> fileGroups = new Dictionary<string, int>();
-            
-            // Run a loop to validate each file
-            foreach(string file in files)
+            if (n > -1)
             {
-                // Get the created month of the file
-                string month = GetCreatedMonth(file);
+                if (File.Exists(filePath[n]))
+                {
+                    // Get the created month of the file
+                    string month = GetCreatedMonth(filePath[n]);
 
-                // Add the month to the key if not already present, and increase the count by 1 for the respective month.
-                if (!fileGroups.ContainsKey(month))
-                {
-                    // If month is not already added, add the month and initialize the file count to 1.
-                    fileGroups.Add(month, 1);
-                }
-                else
-                {
-                    // If month already exists, increase the count by 1.
-                    fileGroups[month] += 1;
+                    // Add the month to the key if not already present, and increase the count by 1 for the respective month.
+                    if (!fileGroup.ContainsKey(month))
+                    {
+                        // If month is not already added, add the month and initialize the file count to 1.
+                        fileGroup.Add(month, 1);
+                    }
+                    else
+                    {
+                        // If month already exists, increase the count by 1.
+                        fileGroup[month] += 1;
+                    }
+
+                    // Return the key value pairs
+                    return GetFileCount(filePath, fileGroup, n - 1);
                 }
             }
-
-            // Return the key value pairs
-            return fileGroups;
+            return fileGroup;
         }
 
         /// <summary>

@@ -1,0 +1,13 @@
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\bin\Debug\netcoreapp3.1\FileCount.exe
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\bin\Debug\netcoreapp3.1\FileCount.deps.json
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\bin\Debug\netcoreapp3.1\FileCount.runtimeconfig.json
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\bin\Debug\netcoreapp3.1\FileCount.runtimeconfig.dev.json
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\bin\Debug\netcoreapp3.1\FileCount.dll
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\bin\Debug\netcoreapp3.1\FileCount.pdb
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\obj\Debug\netcoreapp3.1\FileCount.csprojAssemblyReference.cache
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\obj\Debug\netcoreapp3.1\FileCount.AssemblyInfoInputs.cache
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\obj\Debug\netcoreapp3.1\FileCount.AssemblyInfo.cs
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\obj\Debug\netcoreapp3.1\FileCount.csproj.CoreCompileInputs.cache
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\obj\Debug\netcoreapp3.1\FileCount.dll
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\obj\Debug\netcoreapp3.1\FileCount.pdb
+F:\GIT HUB\NITYAINC\Assignment\FileCount\FileCount\obj\Debug\netcoreapp3.1\FileCount.genruntimeconfig.cache
