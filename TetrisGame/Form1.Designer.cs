@@ -90,7 +90,7 @@ namespace TetrisGame
                 SetCoordinates();
             }
             // Game over condition
-            if (occupied[x, 0] == true)
+            if (occupied[ClientSize.Width/2, 0] == true)
             {
                 timer1.Stop();
                 MessageBox.Show("Game over");
