@@ -11,7 +11,7 @@ namespace TetrisGame
             KeyDown += Form1_KeyEvent;
             timer1 = new Timer();
             timer1.Tick += new EventHandler(Timer1_Tick);
-            timer1.Interval = 1000;
+            timer1.Interval = 250;
             timer1.Enabled = true;
             SetCoordinates();
             occupied = new bool[ClientSize.Width+1, ClientSize.Height+1];
@@ -21,7 +21,7 @@ namespace TetrisGame
         {
             x = ClientSize.Width/2;
             y = 0;
-            blockMovementCoordinate = ClientSize.Height / 10;
+            blockMovementCoordinate = ClientSize.Height / 20;
         }
     }
 }
