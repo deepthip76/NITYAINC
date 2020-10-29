@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 
 namespace TetrisGame
@@ -56,9 +57,6 @@ namespace TetrisGame
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
-            shapeGeneration = new Random();
-            shape = shapeGeneration.Next(0, 6);
-            grid.Size = new Size(ClientSize.Width, ClientSize.Height);
         }
 
         /// <summary>
@@ -106,24 +104,26 @@ namespace TetrisGame
                     }
                     catch (IndexOutOfRangeException) { }
                     shape = shapeGeneration.Next(0, 6);
-                    SetCoordinates();
-                    DrawRandomShape(shape);
                     if (ClearUponFill())
                     {
-                        g.FillRectangle(new SolidBrush(Color.Black), 0, ClientSize.Width, 40, 40);
+                        g.FillRectangle(new SolidBrush(Color.Black), 0, y4, ClientSize.Width, 40);
+                        MoveBlocksDown();
                     }
+                    SetCoordinates();
+                    DrawRandomShape(shape);
                 }
             }
             catch (IndexOutOfRangeException) { }
             // Game over condition
-            if (occupied[ClientSize.Width / 2, 0] == true)
+            if (occupied[ClientSize.Width / 2, 40] == true && occupied[ClientSize.Width / 2, 40]
+                && occupied[ClientSize.Width / 2, 40] && occupied[ClientSize.Width / 2, 40])
             {
                 timer1.Stop();
                 MessageBox.Show("Game over");
             }
         }
 
-        public void DrawRandomShape(int randomNumber, bool erase = false)
+        public void DrawRandomShape(int randomNumber, bool erase = false, int rotateCount = 0)
         {
             x1 = x;
             x2 = x;
@@ -142,7 +142,7 @@ namespace TetrisGame
                     y2 = y + 40;
                     y3 = y + 80;
                     y4 = y + 80;
-                    brush = new SolidBrush(Color.Red);
+                    brush = new SolidBrush(Color.Yellow);
                     if (erase)
                     {
                         brush = new SolidBrush(Color.Black);
@@ -150,11 +150,28 @@ namespace TetrisGame
                     //grid.Rows[x].Cells.Add()
                     break;
                 case 1:
-                    // Draw I Shape
-                    brush = new SolidBrush(Color.Aqua);
-                    y2 = y + 40;
-                    y3 = y + 80;
-                    y4 = y + 120;
+                    if (rotateCount > 0)
+                    {
+                        switch (rotateCount)
+                        {
+                            case 1:
+                                x1 = x1 - 40;
+                                y1 = y1 + 40;
+                                x3 = x3 + 40;
+                                y3 = y3 - 40;
+                                x4 = x4 + 80;
+                                y4 = y - 40;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        // Draw I Shape
+                        brush = new SolidBrush(Color.Yellow);
+                        y2 = y + 40;
+                        y3 = y + 80;
+                        y4 = y + 120;
+                    }
                     if (erase)
                     {
                         brush = new SolidBrush(Color.Black);
@@ -178,7 +195,7 @@ namespace TetrisGame
                     y3 = y + 40;
                     x4 = x + 40;
                     y4 = y + 40;
-                    brush = new SolidBrush(Color.Orange);
+                    brush = new SolidBrush(Color.Yellow);
                     if (erase)
                     {
                         brush = new SolidBrush(Color.Black);
@@ -186,12 +203,11 @@ namespace TetrisGame
                     break;
                 case 4:
                     // Draw Square
-                    brush = new SolidBrush(Color.Pink);
+                    brush = new SolidBrush(Color.Yellow);
                     x2 = x + 40;
                     y3 = y + 40;
                     x4 = x + 40;
                     y4 = y + 40;
-                    brush = new SolidBrush(Color.Pink);
                     if (erase)
                     {
                         brush = new SolidBrush(Color.Black);
@@ -199,11 +215,11 @@ namespace TetrisGame
                     break;
                 case 5:
                     // T Shape
-                    x4 = x + 40;
+                    x3 = x + 40;
                     y2 = y + 40;
-                    y3 = y + 80;
-                    y4 = y + 40;
-                    brush = new SolidBrush(Color.Red);
+                    y4 = y + 80;
+                    y3 = y + 40;
+                    brush = new SolidBrush(Color.Yellow);
                     if (erase)
                     {
                         brush = new SolidBrush(Color.Black);
@@ -223,19 +239,30 @@ namespace TetrisGame
             switch (e.KeyCode)
             {
                 case Keys.Left:
-                    if (x > 0)
+                    try
                     {
-                        DrawRandomShape(shape, true);
-                        x -= 40;
+                        // Condition to avoid overlapping with the walls and other blocks
+                        if (x1 >= 0 && x2 >= 0 && x3 >= 0 && x4 >= 0 && !occupied[x1 - 40, y1] && !occupied[x2 - 40, y2] && !occupied[x3 - 40, y3] && !occupied[x4 - 40, y4])
+                        {
+                            DrawRandomShape(shape, true);
+                            x -= 40;
+                        }
                     }
+                    catch (IndexOutOfRangeException) { }
                     break;
 
                 case Keys.Right:
-                    if (x1+40 < 800 && x2+40 < 800 && x3+40 < 800 && x4 +40< 800)
+                    try
                     {
-                        DrawRandomShape(shape, true);
-                        x += 40;
+                        // Condition to avoid overlapping with the walls and other blocks
+                        if (x1 + 40 < 800 && x2 + 40 < 800 && x3 + 40 < 800 && x4 + 40 < 800 && !occupied[x1 + 40, y1] && !occupied[x2 + 40, y2]
+                            && !occupied[x3 + 40, y3] && !occupied[x4 + 40, y4])
+                        {
+                            DrawRandomShape(shape, true);
+                            x += 40;
+                        }
                     }
+                    catch (IndexOutOfRangeException) { }
                     break;
             }
         }
@@ -244,13 +271,33 @@ namespace TetrisGame
         {
             for (int a = 0; a < ClientSize.Width; a += 40)
             {
-                if (!occupied[a, y])
+                if (!occupied[a, y4])
                 {
                     return false;
                 }
             }
+
+            for (int a = 0; a < ClientSize.Width; a += 40)
+            {
+                occupied[a, y4] = false;
+            }
             return true;
         }
+
+
+        public void MoveBlocksDown()
+        {
+            for (int a = 0; a < ClientSize.Width; a += 40)
+            {
+                for (int b = 0; b < ClientSize.Height; b += 40)
+                    if (occupied[a, b])
+                    {
+                        Graphics g = this.CreateGraphics();
+                        g.FillRectangle(new SolidBrush(Color.Yellow), new Rectangle(a, b + 40, 40, 40));
+                    }
+            }
+        }
+
         #endregion
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Timer timer1;
