@@ -17,10 +17,11 @@ namespace TetrisGame
             occupied = new bool[ClientSize.Width+1, ClientSize.Height+1];
 
             shapeGeneration = new Random();
-            shape = shapeGeneration.Next(0, 6);
+            shape = shapeGeneration.Next(0, 5);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            rotate = 0;
         }
 
         public void SetCoordinates()
